@@ -5,37 +5,31 @@ from selenium.webdriver.support.ui import WebDriverWait
 from hamcrest import assert_that, contains_string, equal_to
 from selenium.common.exceptions import TimeoutException
 from behave import *
-# from features.lib.pages import PageFactory
+import pdb
+from features.lib.pages.home_page import HomePage
+from helpers.utilities import Utilities
 
-use_step_matcher("re")
+use_step_matcher("parse")
 
-"""
-This file contains steps from login page.
-"""
 
-@given(u'I navigate to (?P<page_name>.+) page')
-def step_impl(context, page_name):
-    context.driver.get("https://google.com/")
-    # context.page = PageFactory(page_name)(context.driver)
-    try:
-        context.driver.get("https://www.argaam.com/en")
-        # context.driver.get(context.base_url)
-    except TimeoutException:
-        print("page load time exceeded")
+@given(u'I navigate to "{page}" page')
+def step_given_I_navigate_to(context, page):
+    context.driver.get(context.base_url)
 
-@then(u'I verify the home page as "bob" user')
-def step_impl(context):
-    context.driver.find_element_by_id("asdasd")
-    # assert_that(context.browser.url.lower(), contains_string(context.page.PATH))
 
+@then(u'I verify the "{page}" page as "{user}" user')
+def step_impl(context, page, user):
+    home_page = HomePage()
+
+    if page=='home' and user=='normal':
+        Utilities.wait_for_element(context, home_page.LOGIN_BUTTON)
+    elif page=='home' and user=='real':
+        Utilities.wait_for_element(context, home_page.PROFILE_NAME)
+    else:
+        print('case not matched')
 
 
 @when(u'I login as a real user')
 def step_impl(context):
-    context.driver.find_element_by_id("asdasd")
-
-
-@then(u'I verify the home page as "real" user')
-def step_impl(context):
-    context.driver.find_element_by_id("asdasd")
-    # raise NotImplementedError(u'STEP: Then I verify the home page as "real" user')
+    home_page = HomePage()
+    home_page.login(context)

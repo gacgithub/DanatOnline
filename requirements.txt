@@ -4,4 +4,4 @@ parse
 parse-type
 PyHamcrest
 PyYAML
-selenium==3.11.0
+selenium

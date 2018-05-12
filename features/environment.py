@@ -5,7 +5,6 @@ import data
 from selenium import webdriver
 from behave.log_capture import capture
 
-
 RUNTIME_DIR = os.path.join(
     os.path.abspath(
         os.path.join(
@@ -15,14 +14,11 @@ RUNTIME_DIR = os.path.join(
     )
 )
 
-
 def before_all(context):
     print("Executing before all")
-    context.driver = webdriver.Firefox()
-    context.driver.implicitly_wait(50)
+    context.driver = webdriver.Chrome()
     context.driver.set_page_load_timeout(50)
-
-    # context.base_url = data.url
+    context.base_url = 'https://www.argaam.com/en'
 
 
 def after_all(context):
@@ -42,8 +38,3 @@ def after_step(context, step):
 def make_dir(dir):
     if not os.path.exists(dir):
         os.makedirs(dir)
-
-# def after_scenario(context):
-
-# def after_feature(context, feature):
-#     context.driver.close()
