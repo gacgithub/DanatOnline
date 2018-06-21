@@ -11,6 +11,7 @@ pipeline {
         stage('Stage 2') {
             steps {
                 echo 'Stage 2'
+                pwd
                 behave features/scenarios/login.feature
             }
         }
