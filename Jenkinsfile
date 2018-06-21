@@ -16,12 +16,20 @@ pipeline {
         }
         
         
-        stage('Stage 3') {
-            steps {
-                echo 'Stage 3'
-                sh 'allure serve allure-results/'
+        stage('reports') {
+           steps {
+                script {
+                    allure([
+                        includeProperties: false,
+                        jdk: '',
+                        properties: [],
+                        reportBuildPolicy: 'ALWAYS',
+                        results: [[path: 'allure-results']]
+                    ])
+                }
             }
-        }        
+        }
+        
         
     }
 }
