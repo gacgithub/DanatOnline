@@ -2,21 +2,20 @@ pipeline {
 
     agent any
     stages {
-        stage('initialize') {
+        stage('Build') {
             steps {
-                echo 'Stage 1'
+                sh 'pip install -r requirements.txt'
             }
         }
         
-        stage('run test') {
+        stage('Test') {
             steps {
                 echo 'Stage 2'
                 sh 'behave -f allure_behave.formatter:AllureFormatter -o allure-results features/scenarios/login.feature -D browser=chrome -D env=UAT'
             }
         }
         
-        
-        stage('reports') {
+        stage('Publish reports') {
            steps {
                 script {
                     allure([
@@ -29,7 +28,6 @@ pipeline {
                 }
             }
         }
-        
         
     }
 }
