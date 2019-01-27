@@ -5,6 +5,3 @@ addons:
       secure: 540558e12ef0b3c417a10663bfdf0b5ed2ccd276
 script:
   sonar-scanner
-cache:
-  directories:
-    - '$HOME/.sonar/cache'
